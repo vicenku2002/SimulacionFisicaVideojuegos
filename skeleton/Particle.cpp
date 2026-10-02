@@ -1,28 +1,28 @@
 #include "Particle.h"
 #include <cmath>
 
-Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 Acc, float Damp) {
+Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 Acc, float Damp, Vector4 Color) {
 	position = physx::PxTransform(Pos.x, Pos.y, Pos.z);
 	velocity = Vel;
 	acceleration = Acc;
 	damping = Damp;
-	// Crear un RenderItem para la part韈ula (por ejemplo, una esfera)
+	// Crear un RenderItem para la part铆cula (por ejemplo, una esfera)
 	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(1.0f)); // Radio de 1.0 unidades
-	renderItem = new RenderItem(shape, &position, Vector4(1.0f, 0.0f, 0.0f, 1.0f)); // Color rojo
+	renderItem = new RenderItem(shape, &position, Color); // Color personalizable
 }
 
 Particle::~Particle() {
-	renderItem->release(); // Liberar el RenderItem
+	if (renderItem) renderItem->release(); // Liberar el RenderItem
 }
 
 void Particle::integrate(double t) {
 
-	// Integraci髇 expl韈ita semimpl韈ita por Euler con aceleraci髇 y damping:
+	// Integraci贸n expl铆cita semiimpl铆cita por Euler con aceleraci贸n y damping:
 	// v(t+dt) = (v(t) + a*dt) * damping^{dt}
 	// p(t+dt) = p(t) + v(t+dt) * dt
 	float dt = static_cast<float>(t);
 
-	// Actualiza la velocidad con la aceleraci髇
+	// Actualiza la velocidad con la aceleraci贸n
 	velocity.x += acceleration.x * dt;
 	velocity.y += acceleration.y * dt;
 	velocity.z += acceleration.z * dt;
@@ -33,7 +33,7 @@ void Particle::integrate(double t) {
 	velocity.y *= dampFactor;
 	velocity.z *= dampFactor;
 
-	// Actualiza la posici髇 con la nueva velocidad
+	// Actualiza la posici贸n con la nueva velocidad
 	position.p.x += velocity.x * dt;
 	position.p.y += velocity.y * dt;
 	position.p.z += velocity.z * dt;

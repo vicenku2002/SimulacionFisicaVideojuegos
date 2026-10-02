@@ -18,7 +18,7 @@ public:
         //physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
         m_transform = physx::PxTransform(physx::PxVec3(0.0f, 10.0f, 0.0f));
 
-		// Crear la partícula para esta escena: (posición inicial, velocidad inicial, aceleración, damping)
+        // Crear la partícula para esta escena: (posición inicial, velocidad inicial, aceleración, damping)
         m_particle = new Particle(Vector3(0.0f, 2.0f, 0.0f), Vector3(1.0f, 0.0f, 0.0f), Vector3(2.0f, 0.0f, 0.0f));
     }
 
@@ -55,5 +55,5 @@ private:
     physx::PxTransform m_transform;
     vector<RenderItem*> m_renderItems;
     Particle* m_particle;
-   
+
 };
