@@ -1,5 +1,6 @@
 #include "Particle.h"
 #include <cmath>
+#include <iostream>
 
 Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 Acc, float Damp, Vector4 Color, float LifeTime, float Mass) {
 	position = physx::PxTransform(Pos.x, Pos.y, Pos.z);

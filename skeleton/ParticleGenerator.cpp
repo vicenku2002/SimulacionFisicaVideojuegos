@@ -2,6 +2,7 @@
 #include <cmath>
 #include <random>
 #include <algorithm>
+#include <iostream>
 
 ParticleGenerator::ParticleGenerator(
     Vector3 Pos,
@@ -18,7 +19,6 @@ ParticleGenerator::ParticleGenerator(
       velocity(Vel),
       velocityVariance(0.0f, 0.0f, 0.0f),
       acceleration(Acc),
-      gravity(0.0f, -10.0f, 0.0f),
       damping(Damp),
       color(Color),
       mass(Mass),
@@ -102,13 +102,12 @@ void ParticleGenerator::update(double deltaTime)
     while (it != particles.end()) {
         Particle* particle = *it;
 
-        Vector3 gravityForce(
-            gravity.x * particle->getMass(),
-            gravity.y * particle->getMass(),
-            gravity.z * particle->getMass()
-        );
+        // Aplicar todos los generadores de fuerzas registrados.
+        for (ForceGenerator* forceGenerator : forceGenerators) {
+            forceGenerator->updateForce(particle, deltaTime);
+        }
 
-        particle->applyForce(gravityForce);
+        // Integrar el movimiento de la partícula.
         particle->integrate(deltaTime);
 
         if (!particle->isAlive()) {
@@ -151,9 +150,12 @@ void ParticleGenerator::setVelocityVariance(Vector3 variance)
     distZ.param(std::normal_distribution<float>::param_type(0.0f, 1.0f));
 }
 
-void ParticleGenerator::setGravity(Vector3 newGravity)
+
+void ParticleGenerator::addForceGenerator(ForceGenerator* forceGenerator)
 {
-    gravity = newGravity;
+    if (forceGenerator != nullptr) {
+        forceGenerators.push_back(forceGenerator);
+    }
 }
 
 void ParticleGenerator::setMass(float newMass)

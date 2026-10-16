@@ -1,5 +1,6 @@
 #pragma once
 #include "Particle.h"
+#include "ForceGenerator.h"
 #include <vector>
 #include <random>
 
@@ -24,8 +25,8 @@ public:
 	// La distribución normal usará Vel como media y estos valores como desviación estándar
 	void setVelocityVariance(Vector3 variance);
 
-	// Establece la gravedad aplicada a todas las partículas
-	void setGravity(Vector3 gravity);
+	// Agrega un generador de fuerzas que afectará a todas las partículas
+	void addForceGenerator(ForceGenerator* forceGenerator);
 
 	// Establece la masa de las partículas emitidas
 	void setMass(float newMass);
@@ -47,7 +48,6 @@ protected:
 	Vector3 velocity;					// Velocidad media de emisión de partículas
 	Vector3 velocityVariance;			// Desviación estándar para la distribución normal de velocidad
 	Vector3 acceleration;				// Aceleración aplicada a las partículas
-	Vector3 gravity;					// Gravedad aplicada a todas las partículas
 	float damping;						// Damping de las partículas
 	Vector4 color;						// Color de las partículas
 	float mass;							// Masa de las partículas emitidas
@@ -56,6 +56,7 @@ protected:
 	float actionRadius;					// Radio de acción máximo
 	double accumulatedTime;				// Tiempo acumulado para generar partículas
 	std::vector<Particle*> particles;	// Lista de partículas activas
+	std::vector<ForceGenerator*> forceGenerators; // Lista de generadores de fuerzas aplicados a las partículas
 
 	// Generador y distribuciones aleatorias
 	std::mt19937 rng;
