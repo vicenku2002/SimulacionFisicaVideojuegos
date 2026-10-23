@@ -13,9 +13,6 @@ public:
 	void setAcceleration(const Vector3& a);
 	void setPosition(const Vector3& p);
 	void setVelocity(const Vector3& v);
-	Vector3 getVelocity() const;
-	Vector3 getPosition() const;
-
-private:
-	float mass; // masa simulada del proyectil
+	
+	
 };

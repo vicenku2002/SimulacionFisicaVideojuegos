@@ -1,10 +1,8 @@
 #include "Projectile.h"
 
 Projectile::Projectile(Vector3 Pos, Vector3 Vel, Vector3 Acc, float Damp, float Mass, Vector4 Color)
-	: Particle(Pos, Vel, Acc, Damp, Color) {
-	mass = Mass;
+	: Particle(Pos, Vel, Acc, Damp, Color, 5.0f, Mass) {
 }
-
 Projectile::~Projectile() {
 	// El destructor de Particle se encarga de liberar renderItem
 }
@@ -27,12 +25,4 @@ void Projectile::setPosition(const Vector3& p) {
 
 void Projectile::setVelocity(const Vector3& v) {
 	velocity = v;
-}
-
-Vector3 Projectile::getVelocity() const {
-	return velocity;
-}
-
-Vector3 Projectile::getPosition() const {
-	return Vector3(position.p.x, position.p.y, position.p.z);
 }

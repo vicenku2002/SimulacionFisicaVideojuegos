@@ -54,22 +54,32 @@ void SceneManager::keyPress(unsigned char key, const physx::PxTransform& cameraT
 
     else  if (key == '1') {
         changeScene("Scene1");
-        return; // Consumimos el evento para que no interfiera con la escena
+        return; 
     }
 
 	else if (key == '2') {
 		changeScene("Scene2");
-		return; // Consumimos el evento para que no interfiera con la escena
+		return; 
 	}
 
     else if (key == '3') {
         changeScene("Scene3");
-        return; // Consumimos el evento para que no interfiera con la escena
+        return; 
     }
 
     else if (key == '4') {
         changeScene("Scene4");
-        return; // Consumimos el evento para que no interfiera con la escena
+        return; 
+    }
+
+    else if (key == '5') {
+        changeScene("Scene5");
+        return;
+    }
+
+    else if (key == '6') {
+        changeScene("Scene6");
+        return;
     }
 
     // Si no es una tecla de navegación global, se la pasamos a la escena activa

@@ -74,6 +74,10 @@ Vector3 Particle::getPosition() const {
 	return Vector3(position.p.x, position.p.y, position.p.z);
 }
 
+Vector3 Particle::getVelocity() const {
+	return velocity;
+}
+
 float Particle::getMass() const {
 	return mass;
 }

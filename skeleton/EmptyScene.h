@@ -38,11 +38,21 @@ public:
 
 	void update(double dt) override {
 
-		// Integrar todos los proyectiles activos
-		for (int i = 0; i < m_projectiles.size(); ++i) {
-			if (m_projectiles[i]) {
-				m_projectiles[i]->integrate(dt);
+		// Integrar los proyectiles y eliminar los que hayan expirado
+		auto it = m_projectiles.begin();
+		while (it != m_projectiles.end()) {
+			Projectile* p = *it;
+
+			if (p) {
+				p->integrate(dt);
+
+				if (p->isAlive()) {
+					++it;
+					continue;
+				}
+				delete p;
 			}
+			it = m_projectiles.erase(it);
 		}
 	}
 
